@@ -4,6 +4,7 @@ import fiona
 import rasterio
 import rasterio.mask
 import urllib.request
+from geocube.api.core import make_geocube
 from pathlib import Path
 
 
@@ -38,3 +39,6 @@ def save_raster(path_to_raster: Path, meta, img):
         dest.write(img)
         
     
+def rasterize_vector(path_to_vector: Path, out_file_name: Path, feature_name: str, resolution: tuple = (-0.0001, 0.0001)):    
+    out_grid = make_geocube(vector_data=path_to_vector, resolution=resolution)
+    out_grid[feature_name].rio.to_raster(out_file_name)
