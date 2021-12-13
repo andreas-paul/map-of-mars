@@ -1,0 +1,9 @@
+python>=3.9.7
+matplotlib
+numpy
+pandas
+seaborn
+gdal
+rasterio
+fiona
+shapely
