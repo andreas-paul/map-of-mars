@@ -12,3 +12,4 @@ dependencies:
   - rasterio
   - fiona
   - shapely
+  - ipykernel # for interactive plots in VSCode
