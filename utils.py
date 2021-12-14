@@ -1,11 +1,12 @@
-
 import os
 import fiona
 import rasterio
 import rasterio.mask
 import urllib.request
-from geocube.api.core import make_geocube
 from pathlib import Path
+from colour import Color
+from geocube.api.core import make_geocube
+from matplotlib.colors import LinearSegmentedColormap
 
 
 def get_dem_data(path: Path, local_file_name: Path):
@@ -41,12 +42,6 @@ def rasterize_vector(path_to_vector: Path, out_file_name: Path, feature_name: st
     out_grid[feature_name].rio.to_raster(out_file_name)
 
 
-def custom_color_map():
-    """
-    Example usage of returns: show(src,cmap=cmap,norm=norm,interpolation='bilinear')
-    """
-    levels = [0, 0.01, 0.02, 0.04, 0.8, 1, 2, 4, 7, 17, 70, 500]
-    clrs = ['#E3E8E81A','#3DFDFF8C', '#3CFAFF', '#6A95FF', '#E61AFE8C', '#FF04FF', '#f4ded9', '#f4dbaa', '#eda14f', '#e87511', '#b55400', '#633b11']    
-    cmap, norm = colors.from_levels_and_colors(levels, clrs, extend='max')
-    
-    return cmap, norm
+def make_ramp( ramp_colors ):    
+    color_ramp = LinearSegmentedColormap.from_list( 'my_list', [ Color( c1 ).rgb for c1 in ramp_colors ] )
+    return color_ramp
